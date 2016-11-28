@@ -38,13 +38,27 @@ UsersRestController.get('/user/:id', function (req, res) {
     });
 });
 
-UsersRestController.get('/users', function (req, res) {
-    // get all user
-    User.find(function (err, Users) {
+
+UsersRestController.delete('/user/:id', function (req, res) {
+    // remove user by id
+    User.remove({
+        _id: req.params.id
+    }, function (err, user) {
         if (err)
             res.status(404).send(err);
         else {
-            res.json(Users);
+            res.json({message: 'User Successfully deleted'});
+        }
+    });
+});
+
+UsersRestController.get('/users', function (req, res) {
+    // get all user
+    User.find(function (err, users) {
+        if (err)
+            res.status(404).send(err);
+        else {
+            res.json(users);
         }
     });
 });
