@@ -17,11 +17,12 @@ UsersRestController.post('/user', function (req, res) {
 
     newUser.password = req.body.password;
 
-    bear.save(function (err) {
+    newUser.save(function (err) {
         if (err)
-            res.json(err);
-
-        res.json({message: 'User created!'});
+            res.status(404).send(err);
+        else {
+            res.status(201).json({message: 'User created!'});
+        }
     });
 
 });
@@ -30,8 +31,10 @@ UsersRestController.get('/user/:id', function (req, res) {
     // get user by id
     User.findById(req.params.id, function (err, user) {
         if (err)
-            res.json(err);
-        res.json(user);
+            res.status(404).send(err);
+        else {
+            res.json(user);
+        }
     });
 });
 
@@ -39,9 +42,10 @@ UsersRestController.get('/users', function (req, res) {
     // get all user
     User.find(function (err, Users) {
         if (err)
-            res.json(err);
-
-        res.json(Users);
+            res.status(404).send(err);
+        else {
+            res.json(Users);
+        }
     });
 });
 
