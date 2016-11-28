@@ -38,6 +38,31 @@ UsersRestController.get('/user/:id', function (req, res) {
     });
 });
 
+UsersRestController.put('/user/:id', function (req, res) {
+    // remove user by id
+    User.findById(req.params.id, function (err, user) {
+
+        if (err) {
+            res.end(err);
+        }
+
+        user.name = req.body.name;  // update the bears info
+
+        user.email = req.body.email;
+
+        user.password = req.body.password;
+
+        // save the bear
+        user.save(function (err) {
+            if (err)
+                res.status(404).send(err);
+            else {
+                res.status(200).json({message: 'User update!'});
+            }
+        });
+
+    });
+});
 
 UsersRestController.delete('/user/:id', function (req, res) {
     // remove user by id
