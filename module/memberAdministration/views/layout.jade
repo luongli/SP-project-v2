@@ -1,0 +1,17 @@
+doctype
+html
+  head
+    block title
+      title Default title
+    link(rel='stylesheet', href='/static/style.css')
+    block static_files
+  body
+    header
+      h1 My Site
+    .container
+      .main-content
+        block content
+      .sidebar
+        block sidebar
+    footer
+      p Running on node with Express, Jade and Stylus
