@@ -1,0 +1,16 @@
+doctype
+html
+  head
+    block title
+      title Default title
+    link(rel='stylesheet', href='/static/css/style.css')
+    link(rel='stylesheet', href='/static/css/bootstrap.css')
+    link(rel='stylesheet', href='/static/css/substyle.css')
+    block css_files
+  body
+    include bodyHeader
+    .container
+      .main-content
+        block content
+    include bodyFooter
+    block script_files
