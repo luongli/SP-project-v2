@@ -36,6 +36,7 @@ var addUser = function (req, res) {
 
 };
 
+
 var getUserById = function (req, res) {
     // get user by id
     User.findById(req.params.id, function (err, user) {

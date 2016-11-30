@@ -15,6 +15,30 @@ var AuthController = express.Router();
 var loginFunction = function (req, res) {
     var error = {};
 
+    if (req.body.token !== undefined) {
+        User.findOne({'token': req.body.token}, function (err, person) {
+            if (err || person == null) {
+                res.json({
+                    status: false,
+                    error: {
+                        token: 'token not found'
+                    },
+                    err: err
+                });
+                return;
+            }
+
+            res.json({
+                status: true
+            })
+
+        });
+
+        return;
+    }
+
+
+
     if (DV.emailValidator(req.body.email) == false) {
         error.email = "Invalid Email"
     }
@@ -55,15 +79,16 @@ var loginFunction = function (req, res) {
                         // override the cleartext password with the hashed one
                         person.token = hash;
                         person.save();
+                        console.log(person);
+
+                        res.json({
+                            status: true,
+                            account: person.toJSON(),
+                            token: person.token
+                        })
                     });
                 });
 
-
-                res.json({
-                    status: true,
-                    account: person.toJSON(),
-                    token: person.token
-                })
                 return;
             }
 
