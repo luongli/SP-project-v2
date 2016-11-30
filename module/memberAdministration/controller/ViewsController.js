@@ -13,7 +13,6 @@ ViewsController.get('/home', function (req, res) {
 });
 
 ViewsController.get('/login', function (req, res) {
-
     var data = {
         title: 'Login',
         next_link: '/signup',
