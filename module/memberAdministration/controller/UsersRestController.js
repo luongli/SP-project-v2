@@ -18,14 +18,15 @@ UsersRestController.post('/user', function (req, res) {
 
     newUser.password = req.body.password;
 
-    newUser.save(function (err) {
-        if (err)
-            res.status(404).send(err);
-        else {
-            res.status(201).json({message: 'User created!'});
-        }
-    });
+    // newUser.save(function (err) {
+    //     if (err)
+    //         res.status(404).send(err);
+    //     else {
+    //         res.status(201).json({message: 'User created!'});
+    //     }
+    // });
 
+    console.log(req.body);
 });
 
 UsersRestController.get('/user/:id', function (req, res) {

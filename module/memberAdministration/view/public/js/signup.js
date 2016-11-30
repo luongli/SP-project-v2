@@ -2,20 +2,20 @@ $( document ).ready(function() {
     $('.login-button').click(function() {
       // when user click login button
       // get user's input
-      var name = $("input[name='name']");
+      var name = $("input[name='name']").val();
       var email = $("input[name='email']").val();
       var password = $("input[name='password']").val();
       var data = {
           name: name,
           email: email,
           password: password
-      }
+      };
       $.ajax({
         type: "POST",
         url: "http://localhost:8000/api/user",
-        data: JSON.stringify(data),
+        data: data,
         success: onSuccess,
-        contentType: "application/json; charset=utf-8",
+        contentType: "application/x-www-form-urlencoded",
         dataType: "json",
       });
 
