@@ -7,24 +7,16 @@ block content
   .dashboard-container 
     .row.no-margin.new-button-hoder.clearfix
         button.
-            <span class="glyphicon glyphicon-plus">
+            <span class="glyphicon glyphicon-plus"></span>
             New User
     .dashboard-box
-        .row.no-margin
+        .row.no-margin.row-data
             .col-xs-3.
                 Name
             .col-xs-4.
                 Email
             .col-xs-1.
                 Admin
-            .col-xs-4.function-button-holder.
-                <button class="edit-button">
-                    <span class="glyphicon glyphicon-pencil"></span>
-                    Edit
-                </button>
-                <button class="delete-button">
-                    <span class="glyphicon glyphicon-trash"></span>
-                    Remove
-                </button>
+            .col-xs-4.
 block script_files
   script(src="#{script}")

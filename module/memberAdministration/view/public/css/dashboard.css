@@ -36,3 +36,13 @@
 .delete-button {
     background-color: red;
 }
+
+.row-data {
+    padding: 5px 0px;
+    border-bottom: 1px solid #cccccc;
+}
+
+.row-data:first-child {
+    border-top: 1px solid #cccccc;
+    font-weight: bold;
+}
