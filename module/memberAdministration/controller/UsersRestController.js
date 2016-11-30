@@ -7,13 +7,35 @@
 var express = require('express');
 var User = require('../model/user');
 
-var day = new Date("");
+var DataValidator = require('./Helper/DataValidator');
+var DV = new DataValidator();
 
 var UsersRestController = express.Router();
 
 var addUser = function (req, res) {
     // Create new user
+
+    var error = {};
+
+    if (DV.nameValidator(req.body.name) == false) {
+        error.name = "Invalid name";
+    }
+
+    if (DV.emailValidator(req.body.email) == false) {
+        error.email = "Invalid Email";
+    }
+
+    if (Object.keys(error).length != 0) {
+
+        res.json({
+            status: false,
+            error: error
+        });
+        return;
+    }
+
     var newUser = new User();
+
     newUser.name = req.body.name;
 
     newUser.email = req.body.email;
@@ -26,11 +48,17 @@ var addUser = function (req, res) {
 
     newUser.save(function (err) {
         if (err) {
-            res.status(404).send(err);
+            res.status(500).json({
+                status: false,
+                error: "Can not create user because of database error !"
+            });
             return;
         }
 
-        res.status(201).json({message: 'User created!'});
+        res.status(201).json({
+            status: true,
+            message: 'User created!'
+        });
 
     });
 
@@ -41,10 +69,16 @@ var getUserById = function (req, res) {
     // get user by id
     User.findById(req.params.id, function (err, user) {
         if (err) {
-            res.status(404).send(err);
+            res.status(500).json({
+                status: false,
+                error: "Can not find user because of database error !"
+            });
             return;
         }
-        res.json(user);
+        res.json({
+            status: true,
+            user: user
+        });
 
     });
 };
@@ -54,7 +88,11 @@ var editUserById = function (req, res) {
     User.findById(req.params.id, function (err, user) {
 
         if (err) {
-            res.end(err);
+            res.status(500).json({
+                status: false,
+                error: "Can not remove user because of database error !"
+            });
+            return;
         }
 
         user.name = req.body.name;
@@ -63,14 +101,19 @@ var editUserById = function (req, res) {
 
         user.password = req.body.password;
 
-        // save the bear
         user.save(function (err) {
             if (err) {
-                res.status(404).send(err);
+                res.status(500).json({
+                    status: false,
+                    error: "Can not edit user because of database error !"
+                });
                 return;
             }
 
-            res.status(200).json({message: 'User update!'});
+            res.status(200).json({
+                status: true,
+                message: 'User update!'
+            });
 
         });
 
@@ -83,11 +126,17 @@ var removeUserById = function (req, res) {
         _id: req.params.id
     }, function (err, user) {
         if (err) {
-            res.status(404).send(err);
+            res.status(500).json({
+                status: false,
+                error: "Can not remove user because of database error !"
+            });
             return;
         }
 
-        res.json({message: 'User Successfully deleted'});
+        res.json({
+            status: true,
+            message: 'User Successfully deleted'
+        });
 
     });
 };
@@ -96,10 +145,16 @@ var getAllUser = function (req, res) {
     // get all user
     User.find(function (err, users) {
         if (err) {
-            res.status(404).send(err);
+            res.status(500).json({
+                status: false,
+                error: "Can not get list of user because of database error !"
+            });
             return;
         }
-        res.json(users);
+        res.json({
+            status: true,
+            users: users
+        });
 
     });
 };
