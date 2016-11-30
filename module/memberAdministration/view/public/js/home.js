@@ -28,18 +28,22 @@ $(document).ready(function() {
       if(data.account.admin) {
         // if user is admin
         // show dashboard
+        $('#location-button > a').html("Dash board");
+        $('#location-button').click(function() {
+          window.location.href = host + '/dashboard';
+        });
+      } else {
+        // if he is not admin
+        // hide dashboard
+        $('#location-button').css({display: 'none'});
       }
-      $('#location-button').html("Dash board");
-      $('#location-button').click(function() {
-        window.location.href = host + '/dashboard';
-      });
       // show logout button
       $('#logout-button').css({display: 'block' });
       $('#logout-button').click(destroyLocalStorage);
     } else {
       // if not logged in
       // set the link to log in page
-      $('#location-button').html("Login");
+      $('#location-button > a').html("Login");
       $('#location-button').click(function() {
         window.location.href = host + '/login';
       });

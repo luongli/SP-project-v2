@@ -5,13 +5,26 @@ block css_files
   link(rel='stylesheet', href='/static/css/dashboard.css')
 block content
   .dashboard-container 
-    .row.no-margin
-        .col-xs-3.
-            Name
-        .col-xs-5.
-            Email
-        .col-xs-1.
-            Admin
-        .col-xs-3.
+    .row.no-margin.new-button-hoder.clearfix
+        button.
+            <span class="glyphicon glyphicon-plus">
+            New User
+    .dashboard-box
+        .row.no-margin
+            .col-xs-3.
+                Name
+            .col-xs-4.
+                Email
+            .col-xs-1.
+                Admin
+            .col-xs-4.function-button-holder.
+                <button class="edit-button">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    Edit
+                </button>
+                <button class="delete-button">
+                    <span class="glyphicon glyphicon-trash"></span>
+                    Remove
+                </button>
 block script_files
   script(src="#{script}")
