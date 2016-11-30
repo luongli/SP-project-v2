@@ -11,8 +11,7 @@ var day = new Date("");
 
 var UsersRestController = express.Router();
 
-
-UsersRestController.post('/user', function (req, res) {
+var addUser = function (req, res) {
     // Create new user
     var newUser = new User();
     newUser.name = req.body.name;
@@ -33,9 +32,9 @@ UsersRestController.post('/user', function (req, res) {
         }
     });
 
-});
+}
 
-UsersRestController.get('/user/:id', function (req, res) {
+var getUserById = function (req, res) {
     // get user by id
     User.findById(req.params.id, function (err, user) {
         if (err)
@@ -44,9 +43,9 @@ UsersRestController.get('/user/:id', function (req, res) {
             res.json(user);
         }
     });
-});
+}
 
-UsersRestController.put('/user/:id', function (req, res) {
+var editUserById = function (req, res) {
     // remove user by id
     User.findById(req.params.id, function (err, user) {
 
@@ -54,7 +53,7 @@ UsersRestController.put('/user/:id', function (req, res) {
             res.end(err);
         }
 
-        user.name = req.body.name;  // update the bears info
+        user.name = req.body.name;
 
         user.email = req.body.email;
 
@@ -70,9 +69,9 @@ UsersRestController.put('/user/:id', function (req, res) {
         });
 
     });
-});
+}
 
-UsersRestController.delete('/user/:id', function (req, res) {
+var removeUserById = function (req, res) {
     // remove user by id
     User.remove({
         _id: req.params.id
@@ -83,9 +82,9 @@ UsersRestController.delete('/user/:id', function (req, res) {
             res.json({message: 'User Successfully deleted'});
         }
     });
-});
+}
 
-UsersRestController.get('/users', function (req, res) {
+var getAllUser = function (req, res) {
     // get all user
     User.find(function (err, users) {
         if (err)
@@ -94,6 +93,16 @@ UsersRestController.get('/users', function (req, res) {
             res.json(users);
         }
     });
-});
+}
+
+UsersRestController.post('/user', addUser);
+
+UsersRestController.get('/user/:id', getUserById);
+
+UsersRestController.put('/user/:id', editUserById);
+
+UsersRestController.delete('/user/:id', removeUserById);
+
+UsersRestController.get('/users', getAllUser);
 
 module.exports = UsersRestController;
