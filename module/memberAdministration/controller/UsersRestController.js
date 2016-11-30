@@ -8,6 +8,7 @@ var day = new Date("");
 
 var UsersRestController = express.Router();
 
+
 UsersRestController.post('/user', function (req, res) {
     // Create new user
     var newUser = new User();
