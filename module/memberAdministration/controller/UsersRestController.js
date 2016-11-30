@@ -169,8 +169,6 @@ var checkAuth = function (req, res, next) {
                 return;
             }
 
-            console.log(req.params.id);
-
             if (person.admin == true)
                 next();
             else if (req.params.id != undefined) {
