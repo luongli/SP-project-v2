@@ -29,4 +29,4 @@ app.use('/', require('./controller/AuthController'));
 
 // start
 app.listen(port);
-console.log('Magic happens on port ' + port);
+console.log('Member Administration on port ' + port);
