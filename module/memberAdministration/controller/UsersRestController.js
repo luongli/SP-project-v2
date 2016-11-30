@@ -95,11 +95,9 @@ var editUserById = function (req, res) {
             return;
         }
 
-        user.name = req.body.name;
-
-        user.email = req.body.email;
-
-        user.password = req.body.password;
+        for (var k in req.body) {
+            user[k] = req.body[k]
+        }
 
         user.save(function (err) {
             if (err) {
@@ -112,7 +110,7 @@ var editUserById = function (req, res) {
 
             res.status(200).json({
                 status: true,
-                message: 'User update!'
+                message: 'User update!',
             });
 
         });
