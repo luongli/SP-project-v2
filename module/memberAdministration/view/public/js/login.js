@@ -23,6 +23,7 @@ $( document ).ready(function() {
 
     // when login Successfully
     function onSuccess(data, status, jqXHR) {
+      console.log(data);
       // save token to local storage
       localStorage.setItem("token", data.token);
       localStorage.setItem("id", data.account._id);

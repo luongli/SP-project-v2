@@ -1,9 +1,16 @@
+// get host address
+var host = location.protocol + "//" + window.location.hostname + (location.port ? ':'+location.port: '');
+var token = localStorage.getItem("token");
 $(document).ready(function() {
-  var host = location.protocol + "//" + window.location.hostname + (location.port ? ':'+location.port: '');
-
+  if (localStorage.getItem("token") === null){
+    // if local storage has no token keys
+    // update UI imediately
+    updateUI(null, null, null);
+    return;
+  }
   // prepare data
   var data = {
-    token: localStorage.getItem("token"),
+    token: token,
   }
   // check if user has logged in
   $.ajax({
@@ -15,20 +22,28 @@ $(document).ready(function() {
   }).done(updateUI);
 
   function updateUI(data, status, jqXHR) {
-    if (data.status) {
+    if (data !== null && data.status) {
       // if logged in
       // set the link of header to dash board
-      $('#location-button').html("Dash board");
-      $('#location-button').click(function() {
-        window.location.href = host + '/dashboard';
-      });
+      if(data.account.admin) {
+        // if user is admin
+        // show dashboard
+        $('#location-button > a').html("Dash board");
+        $('#location-button').click(function() {
+          window.location.href = host + '/dashboard';
+        });
+      } else {
+        // if he is not admin
+        // hide dashboard
+        $('#location-button').css({display: 'none'});
+      }
       // show logout button
       $('#logout-button').css({display: 'block' });
       $('#logout-button').click(destroyLocalStorage);
     } else {
       // if not logged in
       // set the link to log in page
-      $('#location-button').html("Login");
+      $('#location-button > a').html("Login");
       $('#location-button').click(function() {
         window.location.href = host + '/login';
       });

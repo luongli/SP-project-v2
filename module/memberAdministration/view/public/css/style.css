@@ -2,6 +2,10 @@
   margin: 0 50px;
 }
 
+.no-margin {
+    margin: 0;
+}
+
 /**************** style for jgrowl ****************/
 .jgrowl-success{
     background-color: green !important;
@@ -14,4 +18,14 @@
 /*************** header style **********************/
 #logout-button {
   display: none;
+}
+
+/************* modal ****************/
+.modal-footer > button {
+  float: right;
+  margin: 0 10px;
+}
+
+.modal-body > .row {
+  margin: 5px 0;
 }
