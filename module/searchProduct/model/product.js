@@ -2,8 +2,6 @@
 
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    SALT_WORK_FACTOR = 10,
-    bcrypt = require('bcrypt'),
     autoIncrement = require('./db');
 
 var ProductSchema = new Schema({
@@ -11,7 +9,7 @@ var ProductSchema = new Schema({
     name: {
         type: String
     },
-    category: [{ type: Number, ref: 'Person' }]
+    category: [{ type: Number, ref: 'Category' }]
 });
 
 ProductSchema.plugin(autoIncrement.plugin, 'Product');
