@@ -27,6 +27,7 @@ $(document).ready(function() {
           // be careful if you use this code
           // sorry :((
           users = data.users;
+          console.log(data);
           var box = $('.dashboard-box');
           data.users.forEach(function(item, index) {
              // for each user
@@ -105,6 +106,36 @@ $(document).ready(function() {
     $('#edit-modal').modal('show');
   });
 
+  // if user click update button
+  $(document).on("click", "#update-button", function() {
+    // prepare data
+    var data = {};
+    var name = $('.edit-modal input[name="name"]').val();
+    if(name.length !== 0) {
+      data.name = name;
+    }
+    var email = $('.edit-modal input[name="email"]').val();
+    if(email.length !== 0) {
+      data.email = email;
+    }
+    var password = $('.edit-modal input[name="password"]').val();
+    if(password.length !== 0) {
+      data.password = password;
+    }
+
+    data.admin = document.getElementById("admin-checkbox").checked;
+    console.log(data);
+    $.ajax({
+      type: "PUT",
+      headers: { 'token': token },
+      url: host + '/api/user/'+id,
+      dataType: "json",
+      data: data,
+    }).done(function(){
+      location.reload();
+    });
+  });
+
   // search for user object based on id
   function getUser(id) {
     var i;
@@ -121,6 +152,16 @@ $(document).ready(function() {
 
   // fill data to modal
   function fillEditModal(user) {
-    
+    if(typeof(user.name) !== undefined) {
+      $('.edit-modal input[name="name"]').val(user.name);
+    }
+
+    if(typeof(user.email) !== undefined) {
+      $('.edit-modal input[name="email"]').val(user.email);
+    }
+
+    if(typeof(user.admin) !== undefined && user.admin) {
+      $('.edit-modal input[name="admin"]').prop('checked', true);
+    }
   }
 });
