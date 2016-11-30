@@ -1,14 +1,13 @@
 extend ../layout/layout
 block title
-  title #{title}
+  title !{title}
 block css_files
   link(rel='stylesheet', href='/static/css/login-signup.css')
 block content
-  .login-container.
-      <div class="login-title">
-          Login
-      </div>
-      <div class="form-container">
+  .login-container
+      div(class="login-title")
+        !{title}
+      div(class="form-container").
           <div class="row no-margin">
               <label class="col-xs-4" for="email">Email address:</label>
               <input class="col-xs-8" type="email" id="email" name="email" value="">
@@ -19,11 +18,11 @@ block content
           </div>
           <div class="row no-margin center-button-container">
               <button class="login-button" type="submit">
-                  Login
+                  !{title}
               </button>
           </div>
           <div class="row no-margin center-button-container">
-              <a href="#">or Create new account</a>
+              <a href="!{next_link}">or !{text_of_link}</a>
           </div>
-
-      </div>
+block script_files
+  script(src='!{script}')
