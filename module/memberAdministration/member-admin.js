@@ -12,7 +12,9 @@ var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var db = require('./model/db');
 
-
+app.set('views', __dirname + '/views')
+app.set('view engine', 'jade')
+app.use('/static/', express.static(__dirname + '/views/public'))
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -26,6 +28,7 @@ var port = process.env.PORT || 8000;        // set our port
 
 // add Restful Controller
 app.use('/api/', require('./controller/UsersRestController'));
+app.use('/pages/', require('./controller/ViewsController'));
 
 
 // start
