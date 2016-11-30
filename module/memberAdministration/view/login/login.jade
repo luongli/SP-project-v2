@@ -7,22 +7,22 @@ block content
   .login-container
       div(class="login-title")
         !{title}
-      div(class="form-container").
-          <div class="row no-margin">
+      div(class="form-container")
+          if (title == "Sign up")
+            .row.no-margin.
+              <label class="col-xs-4" for="email">Name:</label>
+              <input class="col-xs-8" type="text" id="name" name="name" value="">
+          .row.no-margin.
               <label class="col-xs-4" for="email">Email address:</label>
               <input class="col-xs-8" type="email" id="email" name="email" value="">
-          </div>
-          <div class="row no-margin">
+          .row.no-margin.
               <label class="col-xs-4" for="email">Password:</label>
               <input class="col-xs-8" type="password" id="password" name="password">
-          </div>
-          <div class="row no-margin center-button-container">
+          .row.no-margin.center-button-container.
               <button class="login-button" type="submit">
                   !{title}
               </button>
-          </div>
-          <div class="row no-margin center-button-container">
+          .row.no-margin.center-button-container.
               <a href="!{next_link}">or !{text_of_link}</a>
-          </div>
 block script_files
   script(src="#{script}")
