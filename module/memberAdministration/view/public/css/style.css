@@ -10,3 +10,8 @@
 .jgrowl-fail{
     background-color: red !important;
 }
+
+/*************** header style **********************/
+#logout-button {
+  display: none;
+}
