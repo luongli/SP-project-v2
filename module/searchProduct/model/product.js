@@ -9,7 +9,7 @@ var ProductSchema = new Schema({
     name: {
         type: String
     },
-    category: [{ type: Number, ref: 'Category' }]
+    category: { type: Number, ref: 'Category' }
 });
 
 ProductSchema.plugin(autoIncrement.plugin, 'Product');

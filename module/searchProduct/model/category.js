@@ -10,8 +10,10 @@ var mongoose = require('mongoose'),
 var CategorySchema = new Schema({
     _id: Number,
     name: {
-        type: String
-    }
+        type: String,
+        unique: true
+    },
+    products: [{ type: Number, ref: 'Product' }]
 });
 
 CategorySchema.plugin(autoIncrement.plugin, 'Category');
