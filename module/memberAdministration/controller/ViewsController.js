@@ -7,14 +7,14 @@ var ViewsController = express.Router();
 
 ViewsController.get('/home', function (req, res) {
     res.render('home/index.jade',
-        {title: 'Home'}
+        {name: 'Home'}
     );
     //res.end('ok');
 });
 
 ViewsController.get('/login', function (req, res) {
     var data = {
-        title: 'Login',
+        name: 'Login',
         next_link: '/signup',
         text_of_link: 'Create new account',
         script: '/static/js/login.js'
@@ -24,7 +24,7 @@ ViewsController.get('/login', function (req, res) {
 
 ViewsController.get('/signup', function (req, res) {
     var data = {
-        title: 'Sign up',
+        name: 'Sign up',
         next_link: '/login',
         text_of_link: 'Log in',
         script: '/static/js/signup.js'
