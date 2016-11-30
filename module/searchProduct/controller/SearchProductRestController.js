@@ -4,8 +4,6 @@
 'use strict'
 
 var express = require('express');
-var Product = require('../model/product')
-var Catagory = require('../model/category')
 var SByname = require('./Strategy/SearchProductByName');
 var SByCate = require('./Strategy/SearchProductByCategory');
 var SStrategy = require('./Strategy/SearchProductStrategy');
