@@ -1,6 +1,9 @@
 /**
  * Created by samhv on 11/28/16.
  */
+
+'use strict'
+
 var express = require('express')
 var User = require('../model/user')
 
@@ -17,6 +20,10 @@ UsersRestController.post('/user', function (req, res) {
     newUser.email = req.body.email;
 
     newUser.password = req.body.password;
+
+    if (req.body.password != undefined) {
+        newUser.admin = req.body.admin;
+    }
 
     newUser.save(function (err) {
         if (err)

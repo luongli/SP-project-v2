@@ -1,3 +1,5 @@
+'use strict'
+
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
@@ -10,7 +12,11 @@ var UserSchema = new Schema({
         unique: true
     },
     name: String,
-    password: String
+    password: String,
+    admin: {
+        type: Boolean,
+        default: false
+    }
 });
 
 

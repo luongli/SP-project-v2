@@ -1,3 +1,4 @@
+'use strict'
 
 var normalizedPath = require("path").join(__dirname, "module");
 var fs = require('fs');

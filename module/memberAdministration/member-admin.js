@@ -1,10 +1,7 @@
 /**
  * Created by samhv on 11/28/16.
  */
-// server.js
-
-// BASE SETUP
-// =============================================================================
+'use strict'
 
 // call the packages we need
 var express    = require('express');        // call express
