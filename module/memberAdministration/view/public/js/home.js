@@ -1,6 +1,6 @@
 // get host address
 var host = location.protocol + "//" + window.location.hostname + (location.port ? ':'+location.port: '');
-
+var token = localStorage.getItem("token");
 $(document).ready(function() {
   if (localStorage.getItem("token") === null){
     // if local storage has no token keys
@@ -10,7 +10,7 @@ $(document).ready(function() {
   }
   // prepare data
   var data = {
-    token: localStorage.getItem("token"),
+    token: token,
   }
   // check if user has logged in
   $.ajax({

@@ -19,3 +19,9 @@
 #logout-button {
   display: none;
 }
+
+/************* modal ****************/
+.modal-footer > button {
+  float: right;
+  margin: 0 10px;
+}

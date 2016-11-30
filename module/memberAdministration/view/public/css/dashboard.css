@@ -46,3 +46,8 @@
     border-top: 1px solid #cccccc;
     font-weight: bold;
 }
+
+.error-row {
+  text-align: center;
+  color: red;
+}
