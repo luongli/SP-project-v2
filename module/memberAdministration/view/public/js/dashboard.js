@@ -1,6 +1,7 @@
 $(document).ready(function() {
     var token = localStorage.getItem("token");
     var currentId = -1;
+    var users = null;
     if(token === null) {
         // if user have not logged
         // display error and return
@@ -25,6 +26,7 @@ $(document).ready(function() {
           // therefore, XSS vunerability will happen here
           // be careful if you use this code
           // sorry :((
+          users = data.users;
           var box = $('.dashboard-box');
           data.users.forEach(function(item, index) {
              // for each user
@@ -56,6 +58,7 @@ $(document).ready(function() {
     box.append('<div class="row no-margin row-data error-row">You dont have permission to view this page</div>');
   }
 
+  // delete a user
   $(document).on("click", ".delete-button", function() {
     // get user id
     id = $(this).data("id");
@@ -77,9 +80,47 @@ $(document).ready(function() {
       dataType: "json"
     }).done(deleteUserSuccess);
 
+    id = -1;
     function deleteUserSuccess() {
       // when user is deleted Successfully
       $('#row-id-' + id).css({display: 'none'});
     }
   });
+
+  // update a user
+  $(document).on("click", ".edit-button", function() {
+    // get user id
+    id = $(this).data("id");
+    // get data of that user
+    var currentUser = getUser(id);
+    if (!currentUser) {
+      // if we cannot fine a user
+      // exit
+      return;
+    }
+
+    // now fill data to modal
+    fillEditModal(currentUser);
+    // show modal delete
+    $('#edit-modal').modal('show');
+  });
+
+  // search for user object based on id
+  function getUser(id) {
+    var i;
+    var len = users.length;
+    for(i = 0; i < len; i++) {
+      if(typeof(users[i]._id) !== undefined && users[i]._id == id){
+        console.log(users[i]);
+        return users[i];
+      }
+    }
+
+    return null;
+  }
+
+  // fill data to modal
+  function fillEditModal(user) {
+    
+  }
 });
