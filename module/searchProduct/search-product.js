@@ -24,7 +24,7 @@ var port = process.env.PORT || 8001;        // set our port
 
 
 // add Restful Controller
-app.use('/api/', require('./controller/UsersRestController'));
+app.use('/api/search', require('./controller/SearchProductRestController'));
 app.use('/', require('./controller/ViewsController'));
 app.use('/', require('./controller/AuthController'));
 

@@ -8,9 +8,9 @@ var express = require('express');
 var SearchProductController = express.Router()
 
 var searchProductByCategory = function (req, res) {
-    
+    // TODO
 }
 
-SearchProductController.post('')
+SearchProductController.post('/category', searchProductByCategory)
 
 module.exports = SearchProductController;
