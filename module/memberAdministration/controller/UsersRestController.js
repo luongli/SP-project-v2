@@ -42,7 +42,7 @@ var addUser = function (req, res) {
 
     newUser.password = req.body.password;
 
-    if (req.body.password != undefined) {
+    if (req.body.admin != undefined) {
         newUser.admin = req.body.admin;
     }
 
