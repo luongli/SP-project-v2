@@ -27,7 +27,6 @@ $(document).ready(function() {
           // be careful if you use this code
           // sorry :((
           users = data.users;
-          console.log(data);
           var box = $('.dashboard-box');
           data.users.forEach(function(item, index) {
              // for each user
