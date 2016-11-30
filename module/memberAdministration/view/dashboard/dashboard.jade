@@ -1,0 +1,17 @@
+extend ../layout/layout
+block title
+  title !{title}
+block css_files
+  link(rel='stylesheet', href='/static/css/dashboard.css')
+block content
+  .dashboard-container 
+    .row.no-margin
+        .col-xs-3.
+            Name
+        .col-xs-5.
+            Email
+        .col-xs-1.
+            Admin
+        .col-xs-3.
+block script_files
+  script(src="#{script}")

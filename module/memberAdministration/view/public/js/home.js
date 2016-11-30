@@ -1,6 +1,7 @@
-$(document).ready(function() {
-  var host = location.protocol + "//" + window.location.hostname + (location.port ? ':'+location.port: '');
+// get host address
+var host = location.protocol + "//" + window.location.hostname + (location.port ? ':'+location.port: '');
 
+$(document).ready(function() {
   if (localStorage.getItem("token") === null){
     // if local storage has no token keys
     // update UI imediately
@@ -21,7 +22,6 @@ $(document).ready(function() {
   }).done(updateUI);
 
   function updateUI(data, status, jqXHR) {
-    console.log(data);
     if (data !== null && data.status) {
       // if logged in
       // set the link of header to dash board

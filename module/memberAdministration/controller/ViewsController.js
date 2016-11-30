@@ -23,7 +23,6 @@ ViewsController.get('/login', function (req, res) {
 });
 
 ViewsController.get('/signup', function (req, res) {
-
     var data = {
         title: 'Sign up',
         next_link: '/login',
@@ -34,5 +33,12 @@ ViewsController.get('/signup', function (req, res) {
 
 });
 
+ViewsController.get('/dashboard', function (req, res) {
+    var data = {
+        title: 'Dashboard',
+        script: '/static/js/dashboard.js'
+    }
+    res.render('dashboard/dashboard.jade', data);
+})
 
 module.exports = ViewsController;
