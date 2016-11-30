@@ -1,6 +1,12 @@
 $(document).ready(function() {
   var host = location.protocol + "//" + window.location.hostname + (location.port ? ':'+location.port: '');
 
+  if (localStorage.getItem("token") === null){
+    // if local storage has no token keys
+    // update UI imediately
+    updateUI(null, null, null);
+    return;
+  }
   // prepare data
   var data = {
     token: localStorage.getItem("token"),
@@ -15,9 +21,14 @@ $(document).ready(function() {
   }).done(updateUI);
 
   function updateUI(data, status, jqXHR) {
-    if (data.status) {
+    console.log(data);
+    if (data !== null && data.status) {
       // if logged in
       // set the link of header to dash board
+      if(data.account.admin) {
+        // if user is admin
+        // show dashboard
+      }
       $('#location-button').html("Dash board");
       $('#location-button').click(function() {
         window.location.href = host + '/dashboard';
