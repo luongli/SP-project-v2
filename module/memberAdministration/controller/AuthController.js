@@ -27,7 +27,8 @@ var loginFunction = function (req, res) {
             }
 
             res.json({
-                status: true
+                status: true,
+                account: person
             })
 
         });
@@ -72,7 +73,6 @@ var loginFunction = function (req, res) {
                         // override the cleartext password with the hashed one
                         person.token = hash;
                         person.save();
-                        console.log(person);
 
                         res.json({
                             status: true,
