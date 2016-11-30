@@ -6,53 +6,59 @@
 var express = require('express');
 var Product = require('../model/product')
 var Catagory = require('../model/category')
+var SByname = require('./Strategy/SearchProductByName');
+var SByCate = require('./Strategy/SearchProductByCategory');
+var SStrategy = require('./Strategy/SearchProductStrategy');
+
 
 var SearchProductController = express.Router()
 
-var searchProductByCategory = function (req, res) {
-    // find category
-    Catagory.findOne({'name': req.params.name}).populate('products').exec().then(function (category) {
-        if (!category) {
-            // not found
-            res.json({
-                status: false,
-                error: "Category " + req.params.name + " not found"
-            });
-            return;
-        }
-        // found
-        // get product list
-        res.json({
-            status: true,
-            products: category.products
-        });
-    });
+var searchProduct = function (req, res) {
+    var sStrategy = new SStrategy();
 
-}
+    if (req.params.searchName == 'product') {
+        var sByName = new SByname();
+        sStrategy.setSearchAlgorithm(sByName);
+        sStrategy.search(req.params.name, function (products) {
+            if (Object.keys(products).length == 0) {
 
-var searchProductByName = function (req, res) {
-    // get Product name
-    var promise = Product.find({'name': req.params.name}).populate('category', 'name').exec();
-    promise.then(function (products) {
-        console.log(products);
-        if (Object.keys(products).length == 0) {
+                res.json({
+                    status: false,
+                    error: "product " + req.params.name + " not found"
+                });
+                return;
+            }
 
             res.json({
-                status: false,
-                error: "product " + req.params.name + " not found"
+                status: true,
+                products: products
             });
             return;
-        }
+        })
+    }
 
-        res.json({
-            status: true,
-            products: products
-        });
-    });
-
+    if (req.params.searchName == 'category') {
+        var sByCate = new SByCate();
+        sStrategy.setSearchAlgorithm(sByCate);
+        sStrategy.search(req.params.name, function (category) {
+            if (!category) {
+                // not found
+                res.json({
+                    status: false,
+                    error: "Category " + req.params.name + " not found"
+                });
+                return;
+            }
+            // found
+            // get product list
+            res.json({
+                status: true,
+                products: category.products
+            });
+        })
+    }
 }
 
-SearchProductController.get('/product/:name', searchProductByName)
-SearchProductController.get('/category/:name', searchProductByCategory)
+SearchProductController.get('/search/:searchName/:name', searchProduct);
 
 module.exports = SearchProductController;

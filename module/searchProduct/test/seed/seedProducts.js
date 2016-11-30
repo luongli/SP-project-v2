@@ -38,11 +38,7 @@ exports.seedProducts = function () {
                     if (!err) {
                         category.products.push(product._id);
                         category.markModified('products')
-                        category.save(function (err) {
-                            if (err) {
-                                console.log(err);
-                            }
-                        });
+                        category.save();
                     }
                 });
             });

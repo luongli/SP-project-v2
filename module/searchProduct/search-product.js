@@ -22,7 +22,7 @@ require('./test/seed/seedProducts').seedProducts()
 var port = process.env.PORT || 8001;        // set our port
 
 // add Restful Controller
-app.use('/api/search', require('./controller/SearchProductRestController'));
+app.use('/api', require('./controller/SearchProductRestController'));
 
 // start
 app.listen(port);
