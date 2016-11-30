@@ -4,8 +4,8 @@
 
 'use strict'
 
-var express = require('express')
-var User = require('../model/user')
+var express = require('express');
+var User = require('../model/user');
 
 var day = new Date("");
 
@@ -25,25 +25,28 @@ var addUser = function (req, res) {
     }
 
     newUser.save(function (err) {
-        if (err)
+        if (err) {
             res.status(404).send(err);
-        else {
-            res.status(201).json({message: 'User created!'});
+            return;
         }
+
+        res.status(201).json({message: 'User created!'});
+
     });
 
-}
+};
 
 var getUserById = function (req, res) {
     // get user by id
     User.findById(req.params.id, function (err, user) {
-        if (err)
+        if (err) {
             res.status(404).send(err);
-        else {
-            res.json(user);
+            return;
         }
+        res.json(user);
+
     });
-}
+};
 
 var editUserById = function (req, res) {
     // remove user by id
@@ -61,39 +64,44 @@ var editUserById = function (req, res) {
 
         // save the bear
         user.save(function (err) {
-            if (err)
+            if (err) {
                 res.status(404).send(err);
-            else {
-                res.status(200).json({message: 'User update!'});
+                return;
             }
+
+            res.status(200).json({message: 'User update!'});
+
         });
 
     });
-}
+};
 
 var removeUserById = function (req, res) {
     // remove user by id
     User.remove({
         _id: req.params.id
     }, function (err, user) {
-        if (err)
+        if (err) {
             res.status(404).send(err);
-        else {
-            res.json({message: 'User Successfully deleted'});
+            return;
         }
+
+        res.json({message: 'User Successfully deleted'});
+
     });
-}
+};
 
 var getAllUser = function (req, res) {
     // get all user
     User.find(function (err, users) {
-        if (err)
+        if (err) {
             res.status(404).send(err);
-        else {
-            res.json(users);
+            return;
         }
+        res.json(users);
+
     });
-}
+};
 
 UsersRestController.post('/user', addUser);
 
