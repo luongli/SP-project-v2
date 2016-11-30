@@ -42,7 +42,7 @@ var addUser = function (req, res) {
 
     newUser.password = req.body.password;
 
-    if (req.body.password != undefined) {
+    if (req.body.admin != undefined) {
         newUser.admin = req.body.admin;
     }
 
@@ -158,6 +158,42 @@ var getAllUser = function (req, res) {
 
     });
 };
+
+var checkAuth = function (req, res, next) {
+
+    if (req.headers.token !== undefined) {
+        User.findOne({'token': req.headers.token}, function (err, person) {
+            if (err || person == null) {
+                res.status(403).json({
+                    status: false,
+                    error: "Forbidden need Admin permission"
+                });
+                return;
+            }
+
+            console.log(req.params.id);
+
+            if (person.admin == true)
+                next();
+            else if (req.params.id != undefined) {
+                if (req.params.id == person._id)
+                    next();
+            } else {
+                res.status(403).json({
+                    status: false,
+                    error: "Forbidden need Admin permission"
+                });
+            }
+
+        });
+    } else {
+        res.status(403).json({
+            status: false,
+            error: "Forbidden need Admin permission"
+        });
+    }
+}
+UsersRestController.use('/', checkAuth);
 
 UsersRestController.post('/user', addUser);
 

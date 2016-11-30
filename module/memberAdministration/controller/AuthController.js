@@ -95,6 +95,52 @@ var loginFunction = function (req, res) {
     });
 };
 
+var signUpFunction = function (req, res) {
+    var error = {};
+
+    if (DV.nameValidator(req.body.name) == false) {
+        error.name = "Invalid name";
+    }
+
+    if (DV.emailValidator(req.body.email) == false) {
+        error.email = "Invalid Email";
+    }
+
+    if (Object.keys(error).length != 0) {
+
+        res.json({
+            status: false,
+            error: error
+        });
+        return;
+    }
+
+    var newUser = new User();
+
+    newUser.name = req.body.name;
+
+    newUser.email = req.body.email;
+
+    newUser.password = req.body.password;
+
+    newUser.save(function (err) {
+        if (err) {
+            res.status(500).json({
+                status: false,
+                error: "Can not create user because of database error !"
+            });
+            return;
+        }
+
+        res.status(201).json({
+            status: true,
+            message: 'User created!'
+        });
+
+    });
+};
+
 AuthController.post('/login', loginFunction);
+AuthController.post('/signup', signUpFunction);
 
 module.exports = AuthController;
