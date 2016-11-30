@@ -13,8 +13,6 @@ var DV = new DataValidator();
 var AuthController = express.Router();
 
 var loginFunction = function (req, res) {
-    var error = {};
-
     if (req.body.token !== undefined) {
         User.findOne({'token': req.body.token}, function (err, person) {
             if (err || person == null) {
@@ -38,17 +36,12 @@ var loginFunction = function (req, res) {
     }
 
 
-
     if (DV.emailValidator(req.body.email) == false) {
-        error.email = "Invalid Email"
-    }
-
-    if (Object.keys(error).length != 0) {
-
         res.json({
             status: false,
-            error: error
+            error: "Invalid Email"
         });
+
         return;
     }
 
